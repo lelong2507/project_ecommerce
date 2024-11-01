@@ -1,4 +1,4 @@
-package com.example.ProjectBE.payload;
+package com.example.ProjectBE.payload.request;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

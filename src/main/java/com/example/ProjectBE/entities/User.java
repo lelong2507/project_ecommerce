@@ -50,9 +50,4 @@ public class User {
     boolean status;
     @Column(nullable = false, name = "role")
     String role;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    List<Order> orders;
-    @ManyToOne
-    @JoinColumn(name = "id_rating", nullable = true)
-    Rating rating;
 }

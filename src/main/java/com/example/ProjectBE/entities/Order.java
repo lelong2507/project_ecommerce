@@ -34,9 +34,11 @@
         Date dateOrder;
         @Column(name = "vat")
         double vat;
-        @ManyToOne
-        @JoinColumn(name = "user_id")
-        User user;
-        @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+        
+        @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
         List<OrderDetail> orderDetails;
+
+        @ManyToOne(fetch = FetchType.LAZY) 
+        @JoinColumn(name = "id_user", nullable = false)
+        private User user;
     }

@@ -10,7 +10,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -29,4 +30,8 @@ public class Rating {
     int startQuantity;
     @Column(name = "content")
     String content;
+    @ManyToOne(fetch = FetchType.LAZY) 
+    @JoinColumn(name = "id_user", nullable = false)
+    private User user;
+
 }

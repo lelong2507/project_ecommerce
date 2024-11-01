@@ -2,10 +2,10 @@ package com.example.ProjectBE.service;
 
 import com.example.ProjectBE.dto.request.UserDTO.UserCreationRequest;
 import com.example.ProjectBE.entities.User;
+import com.example.ProjectBE.payload.request.LoginRequest;
 import com.example.ProjectBE.repository.UserRepository;
 
 import org.mindrot.jbcrypt.BCrypt;
-//import com.example.ProjectBE.utils.EncodingUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,12 +20,13 @@ public class UserService {
     private UserRepository userRepository;
 
     // Login Method
-    public User login(String username, String password) {
-        Optional<User> user = userRepository.findByUserName(username);
-        if (user.isPresent()) {
-            User loginUser = user.get();
-            if (BCrypt.checkpw(password, loginUser.getPassWord())) {
-                return loginUser;
+
+    public User loginMethod(String userName, String passWord) {
+        Optional<User> userOptional = userRepository.findByUserName(userName);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            if (BCrypt.checkpw(passWord, user.getPassWord())) {
+                return user;
             }
         }
 
@@ -53,5 +54,9 @@ public class UserService {
         user.setAvatar("Edit your avatar");
         user.setStatus(true);
         return userRepository.save(user);
+    }
+
+    public User getUserById(int id) {
+        return userRepository.getReferenceById(id);
     }
 }
