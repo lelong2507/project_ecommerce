@@ -30,8 +30,11 @@ public class Rating {
     int startQuantity;
     @Column(name = "content")
     String content;
-    @ManyToOne(fetch = FetchType.LAZY) 
+    @ManyToOne
     @JoinColumn(name = "id_user", nullable = false)
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 }

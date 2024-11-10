@@ -1,9 +1,11 @@
 package com.example.ProjectBE.repository;
 
-import com.example.ProjectBE.entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.example.ProjectBE.entities.Voucher;
+
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Integer> {
+public interface VocherRepository extends JpaRepository<Voucher, Integer> {
+
 }

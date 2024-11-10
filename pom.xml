@@ -127,20 +127,59 @@
 		</artifactId>
 		</dependency>
 		-->
-		<!-- <dependency>
+		<!--
+		<dependency>
+		<groupId>
+		org.springframework.boot
+		</groupId>
+		<artifactId>
+		spring-boot-starter-oauth2-client
+		</artifactId>
+		</dependency>
+		-->
+		<dependency>
+			<groupId>
+				org.mindrot
+			</groupId>
+			<artifactId>
+				jbcrypt
+			</artifactId>
+			<version>
+				0.4
+			</version>
+		</dependency>
+		<dependency>
 			<groupId>
 				org.springframework.boot
 			</groupId>
 			<artifactId>
-				spring-boot-starter-oauth2-client
+				spring-boot-starter-websocket
 			</artifactId>
-		</dependency> -->
-		<dependency>
-			<groupId>org.mindrot</groupId>
-			<artifactId>jbcrypt</artifactId>
-			<version>0.4</version>
 		</dependency>
-		
+		<!-- https://mvnrepository.com/artifact/org.webjars/sockjs-client -->
+		<dependency>
+			<groupId>
+				org.webjars
+			</groupId>
+			<artifactId>
+				sockjs-client
+			</artifactId>
+			<version>
+				1.0.2
+			</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.webjars/stomp-websocket -->
+		<dependency>
+			<groupId>
+				org.webjars
+			</groupId>
+			<artifactId>
+				stomp-websocket
+			</artifactId>
+			<version>
+				2.3.3
+			</version>
+		</dependency>
 		<dependency>
 			<groupId>
 				org.springframework.boot

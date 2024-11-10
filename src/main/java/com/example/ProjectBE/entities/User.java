@@ -33,20 +33,20 @@ public class User {
     String userName;
     @Column(nullable = false, name = "pass_word")
     String passWord;
-    @Column(nullable = false, name = "first_name")
+    @Column(name = "first_name")
     String firstName;
-    @Column(nullable = false, name = "last_name")
+    @Column(name = "last_name")
     String lastName;
-    @Column(nullable = false, name = "address")
+    @Column(name = "address")
     String address;
-    @Column(nullable = false, name = "phone_number")
+    @Column(name = "phone_number")
     String phoneNumber;
-    @Column(nullable = false, name = "user_dob")
+    @Column(name = "user_dob")
     @DateTimeFormat(pattern = ("yyyy-MM-dd"))
     Date userDob;
-    @Column(nullable = false, name = "avatar")
+    @Column(name = "avatar")
     String avatar;
-    @Column(nullable = false, name = "status")
+    @Column(name = "status")
     boolean status;
     @Column(nullable = false, name = "role")
     String role;

@@ -1,8 +1,14 @@
 package com.example.ProjectBE.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
 @Entity
@@ -27,12 +33,8 @@ public class Product {
     @Column(name = "image_url")
     String imageUrl;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_category", referencedColumnName = "id_category", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_category", nullable = false)
     private Category category;
-
-    @ManyToOne
-    @JoinColumn(name = "id_rating", nullable = true)
-    private Rating rating;
 
 }

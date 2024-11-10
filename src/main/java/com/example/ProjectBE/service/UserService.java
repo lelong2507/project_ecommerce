@@ -1,10 +1,12 @@
 package com.example.ProjectBE.service;
 
 import com.example.ProjectBE.dto.request.UserDTO.UserCreationRequest;
+import com.example.ProjectBE.dto.request.UserDTO.UserDetailRequest;
+import com.example.ProjectBE.dto.request.UserDTO.UserUpdateRequest;
 import com.example.ProjectBE.entities.User;
-import com.example.ProjectBE.payload.request.LoginRequest;
 import com.example.ProjectBE.repository.UserRepository;
 
+import jakarta.transaction.Transactional;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,14 +15,19 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
+import java.util.List;
 
 @Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    // Login Method
+    // Show list
+    public List<User> showAllUser() {
+        return userRepository.findAll();
+    }
 
+    // Login Method
     public User loginMethod(String userName, String passWord) {
         Optional<User> userOptional = userRepository.findByUserName(userName);
         if (userOptional.isPresent()) {
@@ -56,7 +63,53 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User getUserById(int id) {
-        return userRepository.getReferenceById(id);
+    public UserDetailRequest getUserById(int id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isEmpty()) {
+            return null;
+        }
+        User user = optionalUser.get();
+        UserDetailRequest userDetailRequest = new UserDetailRequest();
+        userDetailRequest.setUserName(user.getUserName());
+        userDetailRequest.setFirstName(user.getFirstName());
+        userDetailRequest.setLastName(user.getLastName());
+        userDetailRequest.setAddress(user.getAddress());
+        userDetailRequest.setPhoneNumber(user.getPhoneNumber());
+        userDetailRequest.setUserDob(user.getUserDob());
+        userDetailRequest.setAvatar(user.getAvatar());
+
+        return userDetailRequest;
+    }
+
+    public void deleteUser(int idUser) {
+        userRepository.deleteById(idUser);
+    }
+
+    @Transactional
+    public void blockUser(int idUser) {
+        User user = userRepository.getReferenceById(idUser);
+        user.setStatus(false);
+    }
+
+    @Transactional
+    public void unBan(int idUser) {
+        User user = userRepository.getReferenceById(idUser);
+        user.setStatus(true);
+    }
+
+    @Transactional
+    public User updateUser(int id, UserUpdateRequest req) {
+        User user = userRepository.getReferenceById(id);
+        if (user != null) {
+            user.setFirstName(req.getFirstName());
+            user.setLastName(req.getLastName());
+            user.setAddress(req.getAddress());
+            user.setPhoneNumber(req.getPhoneNumber());
+            user.setUserDob(req.getUserDob());
+            user.setAvatar(req.getAvatar());
+            return userRepository.save(user);
+        } else {
+            throw new RuntimeException("User with id " + id + " not found.");
+        }
     }
 }

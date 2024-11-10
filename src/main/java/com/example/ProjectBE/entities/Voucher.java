@@ -1,6 +1,9 @@
 package com.example.ProjectBE.entities;
 
+import java.util.Date;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -28,6 +31,13 @@ public class Voucher {
     @Column(name = "voucher_name")
     String voucherName;
 
-    @OneToMany(mappedBy = "voucher", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    List<OrderDetail> orderDetails; 
+    @Column(name = "voucher_value")
+    double voucherValue;
+
+    @Column(name = "init_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    Date initDate;
+
+    @OneToMany(mappedBy = "voucher", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    List<OrderDetail> orderDetails;
 }

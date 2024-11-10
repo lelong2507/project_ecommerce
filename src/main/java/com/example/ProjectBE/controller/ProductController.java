@@ -1,6 +1,7 @@
 package com.example.ProjectBE.controller;
 
 import com.example.ProjectBE.dto.request.ProductDTO.ProductCreationRequest;
+import com.example.ProjectBE.dto.request.ProductDTO.ProductDetailsRequest;
 import com.example.ProjectBE.dto.request.ProductDTO.ProductUpdateRequest;
 import com.example.ProjectBE.entities.Category;
 import com.example.ProjectBE.entities.Product;
@@ -28,24 +29,32 @@ public class ProductController {
         return productService.showAllProduct();
     }
 
-    @GetMapping("/{idProduct}")
-    public ResponseEntity<Product> showDetail(@PathVariable(name = "idProduct") int product_id) {
-        Product product = productService.getProductById(product_id);
-        if (product == null) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @GetMapping("/product-detail/{idProduct}")
+    ResponseEntity<?> showDetail(@PathVariable(name = "idProduct") String product_id) {
+        System.out.println("details product .............");
+        try {
+            int idProduct = Integer.parseInt(product_id);
+            ProductDetailsRequest request = productService.getProductById(idProduct);
+            if (request != null) {
+                System.out.println(request);
+                return new ResponseEntity<>(request, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(request, HttpStatus.NO_CONTENT);
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+            return new ResponseEntity<>("Invalid id product", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<Product>(product, HttpStatus.OK);
     }
 
     @PostMapping("/add-product")
     public ResponseEntity<?> createProduct(@RequestBody ProductCreationRequest request) {
         System.out.println(request.toString());
+        System.out.println("Category id: " + request.getIdCategory());
         try {
             Category category = categoryService.findById(request.getIdCategory());
             if (category == null) {
                 return new ResponseEntity<>("Category not found", HttpStatus.BAD_REQUEST);
             }
-
             Product product = new Product();
             product.setProductName(request.getProductName());
             product.setProductDesc(request.getProductDesc());
@@ -53,20 +62,34 @@ public class ProductController {
             product.setCategory(category);
             product.setImageUrl(request.getImgUrl());
 
-            productService.createRequest(product);
-            return new ResponseEntity<>(product, HttpStatus.CREATED);
+            productService.createProduct(product, request.getIdCategory());
+            System.out.println("product add: " + product.toString());
+            return new ResponseEntity<>(product, HttpStatus.OK);
 
         } catch (Exception e) {
+            System.out.println(e);
             return new ResponseEntity<>("Failed to save driver: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PutMapping("/{product_id}")
-    Product updateProduct(@RequestBody ProductUpdateRequest req, @PathVariable("product_id") int id) {
-        return productService.updateProduct(id, req);
+    @PutMapping("/update-product/{product_id}")
+    ResponseEntity<?> updateProduct(@RequestBody ProductUpdateRequest req, @PathVariable("product_id") String id) {
+        try {
+            int idProduct = Integer.parseInt(id);
+            Category category = categoryService.findById(req.getIdCategory());
+            if (category == null) {
+                return new ResponseEntity<>("Category not found", HttpStatus.BAD_REQUEST);
+            }
+            Product product = productService.getProductByIdProduct(idProduct);
+            Product productUpdate = productService.updateProduct(idProduct, category.getIdCategory(), req);
+            System.out.println("Product id:" + id + "has been updated " + productUpdate.toString());
+            return new ResponseEntity<>(product, HttpStatus.OK);
+        } catch (NumberFormatException e) {
+            return new ResponseEntity<>("Invalid product ID format", HttpStatus.BAD_REQUEST);
+        }
     }
 
-    @DeleteMapping("/{product_id}")
+    @DeleteMapping("/delete/{product_id}")
     void deleteProduct(@PathVariable("product_id") int id) {
         productService.deleteProduct(id);
     }
