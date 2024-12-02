@@ -5,8 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -23,7 +21,4 @@ public class Payment {
     int idPayment;
     @Column(name = "payment_name")
     String paymentName;
-    @ManyToOne
-    @JoinColumn(name = "id_order_detail", nullable = false)
-    OrderDetail orderDetail;
 }

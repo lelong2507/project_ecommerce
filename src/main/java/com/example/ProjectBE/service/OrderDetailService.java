@@ -1,5 +1,7 @@
 package com.example.ProjectBE.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,5 +16,9 @@ public class OrderDetailService {
 
     public OrderDetail saveOrderDetail(OrderDetail orderDetail) {
         return orderDetailRepository.save(orderDetail);
+    }
+
+    public List<OrderDetail> getOrderDetailList() {
+        return orderDetailRepository.findAll();
     }
 }

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.ProjectBE.entities.Voucher;
 
 @Repository
-public interface VocherRepository extends JpaRepository<Voucher, Integer> {
+public interface VoucherRepository extends JpaRepository<Voucher, Integer> {
 
 }

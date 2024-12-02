@@ -13,6 +13,7 @@ import java.util.Date;
 @ToString
 public class UserDetailRequest {
     String userName;
+    String email;
     String firstName;
     String lastName;
     String address;

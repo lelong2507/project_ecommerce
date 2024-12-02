@@ -15,7 +15,8 @@ public class UserCreationRequest {
     String userName;
     String passWord;
     String role;
-    public UserCreationRequest(String firstName, String userName, String passWord,String role) {
+
+    public UserCreationRequest(String firstName, String userName, String passWord, String role) {
         this.firstName = firstName;
         this.userName = userName;
         this.passWord = passWord;

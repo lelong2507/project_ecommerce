@@ -2,6 +2,9 @@ package com.example.ProjectBE.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.annotation.Generated;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -26,15 +29,14 @@ public class Rating {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_rating")
     int idRating;
-    @Column(name = "start_quantity")
-    int startQuantity;
     @Column(name = "content")
     String content;
     @ManyToOne
     @JoinColumn(name = "id_user", nullable = false)
+    @JsonProperty
     private User user;
-
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
+    @JsonIgnore
     private Product product;
 }

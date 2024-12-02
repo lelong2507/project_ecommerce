@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RequestMapping(value = "/vouchers")
 public class VoucherController {
 
-    @Autowiredß
+    @Autowired
     private VoucherService voucherService;
 
     @GetMapping("/get-all-voucher")

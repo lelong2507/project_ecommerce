@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,16 +31,34 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_order")
     int idOrder;
+
     @Column(name = "date_order")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date dateOrder;
+
     @Column(name = "vat")
     double vat;
+
+    @Column(name = "price")
+    double price;
+
+    @Column(name = "status")
+    boolean status;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<OrderDetail> orderDetails;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_user", nullable = false)
-    private User user;
+    User user;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "payment_id", nullable = true)
+    @JsonIgnore
+    Payment payment;
+
+    @ManyToOne
+    @JoinColumn(name = "voucher_id", nullable = true)
+    @JsonIgnore
+    Voucher voucher;
 }

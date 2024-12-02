@@ -35,6 +35,7 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    @Transactional
     public void deleteProduct(int id) {
         Product product = productRepository.getReferenceById(id);
         productRepository.delete(product);

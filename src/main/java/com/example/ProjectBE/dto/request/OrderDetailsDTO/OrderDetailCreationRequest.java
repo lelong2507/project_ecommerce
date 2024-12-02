@@ -11,10 +11,6 @@ import lombok.experimental.FieldDefaults;
 @Data
 @ToString
 public class OrderDetailCreationRequest {
-
     int idProduct;
-
     int quantity;
-
-    double price;
 }

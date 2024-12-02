@@ -12,14 +12,14 @@ import org.springframework.stereotype.Service;
 import com.example.ProjectBE.dto.request.VoucherDTO.VoucherCreationRequest;
 import com.example.ProjectBE.dto.request.VoucherDTO.VoucherUpdateRequest;
 import com.example.ProjectBE.entities.Voucher;
-import com.example.ProjectBE.repository.VocherRepository;
+import com.example.ProjectBE.repository.VoucherRepository;
 
 import jakarta.transaction.Transactional;
 
 @Service
 public class VoucherService {
     @Autowired
-    private VocherRepository voucherRepository;
+    private VoucherRepository voucherRepository;
 
     public List<Voucher> getAllVouchers() {
         return voucherRepository.findAll();
